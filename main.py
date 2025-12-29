@@ -214,6 +214,8 @@ def main(page: ft.Page):
     load_concorsi()
 
 if __name__ == "__main__":
-    # Render usa la variabile d'ambiente PORT
+    import os
+    # Render assegna una porta variabile. Se non la specifichi, l'app non parte.
     port = int(os.getenv("PORT", 8080))
-    ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=port)
+    # 'host="0.0.0.0"' è obbligatorio per rendere l'app visibile su internet
+    ft.app(target=main, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", port=port)

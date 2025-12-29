@@ -150,11 +150,22 @@ def main(page: ft.Page):
     nota_input = ft.TextField(label="Nota Personale", multiline=True, min_lines=2, expand=1)
     file_info_text = ft.Text("Nessun PDF", color=ft.Colors.GREY_700)
     
-    file_picker = ft.FilePicker(on_result=lambda e: (
-        selected_files_paths.extend([f.path for f in e.files]),
-        setattr(file_info_text, "value", f"{len(selected_files_paths)} file caricati"),
-        page.update()
-    ) if e.files else None)
+    # 1. Definiamo prima COSA deve succedere quando scegli i file
+    def on_file_result(e: ft.FilePickerResultEvent):
+        if e.files:
+            # Aggiungiamo i percorsi dei file alla lista
+            selected_files_paths.extend([f.path for f in e.files])
+            # Aggiorniamo il testo a video
+            file_info_text.value = f"{len(selected_files_paths)} file caricati"
+            page.update()
+
+    # 2. Creiamo il FilePicker SENZA passare argomenti dentro le parentesi
+    file_picker = ft.FilePicker()
+
+    # 3. Assegniamo l'evento subito dopo
+    file_picker.on_result = on_file_result
+
+    # 4. Lo aggiungiamo alla pagina (come facevi prima)
     page.overlay.append(file_picker)
 
     concorsi_table = ft.DataTable(

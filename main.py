@@ -217,11 +217,13 @@ if __name__ == "__main__":
     import os
     port = int(os.getenv("PORT", 8080))
     
+    # Usiamo ft.app ma con i parametri corretti per le nuove versioni
     ft.app(
         target=main, 
         view=ft.AppView.WEB_BROWSER, 
         host="0.0.0.0", 
         port=port,
-        # Usa le stringhe invece degli attributi della classe, è più sicuro
-        web_renderer="html" 
+        # Proviamo a omettere web_renderer o usare il valore corretto
+        # Se continua a darti errore, cancella la riga sotto
+        web_renderer="canvaskit" 
     )

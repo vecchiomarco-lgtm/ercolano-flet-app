@@ -215,7 +215,14 @@ def main(page: ft.Page):
 
 if __name__ == "__main__":
     import os
-    # Render assegna una porta variabile. Se non la specifichi, l'app non parte.
+    # Render assegna la porta, se non la trova usa la 8080
     port = int(os.getenv("PORT", 8080))
-    # 'host="0.0.0.0"' è obbligatorio per rendere l'app visibile su internet
-    ft.app(target=main, view=ft.AppView.WEB_BROWSER, host="0.0.0.0", port=port)
+    
+    ft.app(
+        target=main, 
+        view=ft.AppView.WEB_BROWSER, 
+        host="0.0.0.0", 
+        port=port,
+        # AGGIUNGI QUESTA RIGA SOTTO: è fondamentale per il cloud
+        web_renderer=ft.WebRenderer.HTML
+    )

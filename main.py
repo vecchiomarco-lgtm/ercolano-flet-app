@@ -215,7 +215,6 @@ def main(page: ft.Page):
 
 if __name__ == "__main__":
     import os
-    # Render assegna la porta, se non la trova usa la 8080
     port = int(os.getenv("PORT", 8080))
     
     ft.app(
@@ -223,6 +222,6 @@ if __name__ == "__main__":
         view=ft.AppView.WEB_BROWSER, 
         host="0.0.0.0", 
         port=port,
-        # AGGIUNGI QUESTA RIGA SOTTO: è fondamentale per il cloud
-        web_renderer=ft.WebRenderer.HTML
+        # Usa le stringhe invece degli attributi della classe, è più sicuro
+        web_renderer="html" 
     )

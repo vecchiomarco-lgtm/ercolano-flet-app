@@ -215,15 +215,12 @@ def main(page: ft.Page):
 
 if __name__ == "__main__":
     import os
-    port = int(os.getenv("PORT", 8080))
+    # Render usa la porta 10000 di default, ma è meglio leggerla dal sistema
+    port = int(os.getenv("PORT", 10000)) 
     
-    # Usiamo ft.app ma con i parametri corretti per le nuove versioni
     ft.app(
         target=main, 
         view=ft.AppView.WEB_BROWSER, 
         host="0.0.0.0", 
-        port=port,
-        # Proviamo a omettere web_renderer o usare il valore corretto
-        # Se continua a darti errore, cancella la riga sotto
-        web_renderer="canvaskit" 
+        port=port
     )
